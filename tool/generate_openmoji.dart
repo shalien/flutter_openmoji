@@ -121,7 +121,7 @@ Future<void> main() async {
         .replaceAll('3rd', 'third');
 
     stringBuffer.writeln(
-        '/// <img src="../static-assets/openmoji-svg-black/${hexCode.toUpperCase()}.svg" width="24" height="24"/> Icon $hexCode named $annotation');
+        '/// <img src="https://www.openmoji.org/data/color/svg/${hexCode.toUpperCase()}.svg" width="24" height="24"/> Icon $hexCode named $annotation (use [$formmatedAnnotation]');
     if (author.isNotEmpty) {
       stringBuffer.writeln('/// Created by $author');
     }

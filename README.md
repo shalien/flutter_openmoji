@@ -1,3 +1,5 @@
+<center><img src="https://cdn.projetretro.io/github/fxo.png" alt="Flutter and OpenMoji logos"></center>
+
 [OpenMoji](https://openmoji.org) is an open-source project of 50+ students and 2 professors of the [HfG Schwäbisch Gmünd](http://www.hfg-gmuend.de/) (Design University) and external contributers.
 
 This package bring those handcrafted magnciient emojis into your flutter projects.
@@ -19,6 +21,17 @@ Run
 ```dart
 const IconButton(onPress: () => print('OpenMoji'), icon: Icon(OpenmojiIcons.airplane));
 ```
+
+Keep in mid some icons names have to be changed to be usable in Flutter and some icons have to be prefixed because they had the same name 
+
+Example : 
+The `microbe` emoji  exists into two categories `animal-bug` (<img src="https://www.openmoji.org/php/download_asset.php?type=emoji&emoji_hexcode=1F9A0&emoji_variant=color" height="32px">) and `extras-openmoji` (<img src="https://www.openmoji.org/php/download_asset.php?type=emoji&emoji_hexcode=E011&emoji_variant=color" height="32px">).
+
+To avoid conflict icons under `extras-*`categories are prefixed with `extras_` .
+
+AS well icon using Dart / Flutter keyword as name (e.g. : switch, return, etc.) are suffixed with `_icon`. 
+
+
 
 ## Build
 
