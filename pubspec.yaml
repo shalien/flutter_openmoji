@@ -1,6 +1,6 @@
 name: flutter_openmoji
 description: '''OpenMoji is an open-source project of 50+ students and 2 professors of the HfG Schwäbisch Gmünd (Design University) and external contributers. This package bring those handcrafted magnciient emojis into your flutter projects.'''
-version: 0.0.2
+version: 0.0.6
 homepage: https://github.com/shalien/flutter_openmoji
 
 environment:
@@ -20,6 +20,6 @@ dev_dependencies:
 
 flutter:
   fonts:
-     - family: OpenMoji
+     - family: OpenMoji-Black
        fonts:
-         - asset: assets/fonts/OpenMoji-Black.ttf
+         - asset: packages/flutter_openmoji/fonts/OpenMoji-Black.ttf

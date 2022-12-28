@@ -9,20 +9,19 @@ import 'package:path/path.dart';
 const List<String> reservedKeyword = <String>['switch', 'return'];
 
 final Directory assetsDirectory = Directory('assets');
-final Directory fontsDirctory =
-    Directory('${assetsDirectory.path}${separator}fonts');
+final Directory fontsDirctory = Directory('lib${separator}fonts');
 
 final File openmojiBlackFontFile =
     File('${fontsDirctory.path}${separator}OpenMoji-Black.ttf');
 
 final File openmojiMetadataFile =
-    File('${Directory.systemTemp.path}${separator}openmoji.csv');
+    File('${Directory.systemTemp.path}${separator}openmoji.json');
 
 const String openmojiMetadataUrl =
     'https://github.com/hfg-gmuend/openmoji/raw/master/data/openmoji.json';
 
 const String openmojiBlackFontFileUrl =
-    'https://github.com/hfg-gmuend/openmoji/blob/master/font/OpenMoji-Black.ttf';
+    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-Black.ttf';
 
 final File openmojiIconsClass =
     File('lib${separator}src${separator}openmoji_icons.dart');
@@ -126,7 +125,7 @@ Future<void> main() async {
       stringBuffer.writeln('/// Created by $author');
     }
     stringBuffer.writeln(
-        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji\', fontPackage: _kFontPkg);');
+        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji-Black\', fontPackage: _kFontPkg);');
     stringBuffer.writeln();
   }
 
