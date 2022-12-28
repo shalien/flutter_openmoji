@@ -126,7 +126,7 @@ Future<void> main() async {
       stringBuffer.writeln('/// Created by $author');
     }
     stringBuffer.writeln(
-        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji\');');
+        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji\', fontPackage: _kFontPkg);');
     stringBuffer.writeln();
   }
 

@@ -17,6 +17,9 @@ import 'package:flutter/widgets.dart';
 ///
 @immutable
 class OpenmojiIcons {
+
+static const _kFontPkg = 'flutter_openmoji';
+
   const OpenmojiIcons._();
 
   @icons

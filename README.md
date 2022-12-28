@@ -42,6 +42,10 @@ Running
     dart run tool\generate_openmoji.dart
 ```
 
+will trigger the building process erasing the content of `lib/src/openmoji_icons.dart` and `assets\fonts\OpenMoji-Black.ttf` with cotent from the repo.
+
+You can customize the ouputted class by modiying the `tool\openmoji_icons.partial` file. 
+
 ## Additional information
 
 [OpenMoji](https://openmoji.org) is an open-source project of 50+ students and 2 professors of the [HfG Schwäbisch Gmünd](http://www.hfg-gmuend.de/) (Design University) and external contributers.
