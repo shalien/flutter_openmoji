@@ -8,11 +8,24 @@ import 'package:path/path.dart';
 
 const List<String> reservedKeyword = <String>['switch', 'return'];
 
+const List<String> files = <String>[
+  'cbdt',
+  'glyf_colr_0',
+  'glyf_colr_1',
+  'picosvgz',
+  'sbix',
+  'untouchedsvgz'
+];
+
 final Directory assetsDirectory = Directory('assets');
-final Directory fontsDirctory = Directory('lib${separator}fonts');
+final Directory fontsDirctory =
+    Directory('${assetsDirectory.path}${separator}fonts');
 
 final File openmojiBlackFontFile =
     File('${fontsDirctory.path}${separator}OpenMoji-Black.ttf');
+
+final File openmojiColorFontFile =
+    File('${fontsDirctory.path}${separator}OpenMoji-Color.ttf');
 
 final File openmojiMetadataFile =
     File('${Directory.systemTemp.path}${separator}openmoji.json');
@@ -22,6 +35,9 @@ const String openmojiMetadataUrl =
 
 const String openmojiBlackFontFileUrl =
     'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-Black.ttf';
+
+const String openmojiColorFontFileUrl =
+    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-Color.ttf';
 
 final File openmojiIconsClass =
     File('lib${separator}src${separator}openmoji_icons.dart');
@@ -57,6 +73,19 @@ Future<void> main() async {
 
   await openmojiBlackFontFile
       .writeAsBytes(openmojiBlackFontFileResponse.bodyBytes);
+
+  stdout.writeln('Downloading Openmoji color font file');
+  Uri colorFontFileUri = Uri.parse(openmojiColorFontFileUrl);
+
+  var openmojiColorFontFileResponse = await get(colorFontFileUri);
+
+  if (openmojiColorFontFileResponse.statusCode != 200) {
+    stderr.writeln('Unable to download font file !');
+    exit(-1);
+  }
+
+  await openmojiColorFontFile
+      .writeAsBytes(openmojiColorFontFileResponse.bodyBytes);
 
   stdout.writeln('Downloading Openmoji metadata file');
   Uri metadataFileUri = Uri.parse(openmojiMetadataUrl);
@@ -125,7 +154,7 @@ Future<void> main() async {
       stringBuffer.writeln('/// Created by $author');
     }
     stringBuffer.writeln(
-        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji-Black\', fontPackage: _kFontPkg);');
+        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji-Color\', fontPackage: _kFontPkg);');
     stringBuffer.writeln();
   }
 

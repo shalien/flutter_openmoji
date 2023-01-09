@@ -24,3 +24,9 @@
 
 ## 0.0.6
 - Corrected font download path
+
+## 0.0.7
+- Changed from black icon to color
+
+## 0.0.8
+- Corrected fonts path
