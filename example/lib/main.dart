@@ -39,26 +39,65 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Icon(
-              OpenmojiIconsBLACKGLYF.person_raising_hand,
-              color: Colors.blue,
-              size: 30,
+          children: <Widget>[
+            Row(
+              children: const [
+                Text('OpenMoji Icons COLR 0 SVG :'),
+                Icon(
+                  OpenmojiIconsCOLR0SVG.person_raising_hand,
+                  size: 30,
+                  color: Colors.blue,
+                )
+              ],
             ),
-            Icon(
-              OpenmojiIconsCOLORGLYFCOLR0.person_raising_hand,
-              size: 30,
-              color: Colors.blue,
+            Row(
+              children: const [
+                Text('OpenMoji Icons COLR 1 SVG :'),
+                Icon(
+                  OpenmojiIconsCOLR1SVG.person_raising_hand,
+                  size: 30,
+                  color: Colors.blue,
+                )
+              ],
             ),
-            Icon(OpenmojiIconsCOLORGLYFCOLR1.person_raising_hand,
-                size: 30, color: Colors.blue),
-            Icon(OpenmojiIconsCOLORPICOSVGZ.person_raising_hand,
-                size: 30, color: Colors.blue),
-            Icon(OpenmojiIconsCOLORSBIX.person_raising_hand,
-                size: 30, color: Colors.blue),
-            Icon(OpenmojiIconsCOLORUNTOUCHEDSVGZ.person_raising_hand,
-                size: 30, color: Colors.blue),
-            Icon(Icons.person_add_outlined, color: Colors.blue, size: 60)
+            Row(
+              children: const [
+                Text('OpenMoji Icons GLYF COLR 0 :'),
+                Icon(
+                  OpenmojiIconsGLYFCOLR0.person_raising_hand,
+                  size: 30,
+                  color: Colors.blue,
+                )
+              ],
+            ),
+            Row(
+              children: const [
+                Text('OpenMoji Icons GLYF COLR 1 :'),
+                Icon(OpenmojiIconsGLYFCOLR1.person_raising_hand,
+                    size: 30, color: Colors.blue),
+              ],
+            ),
+            Row(
+              children: const [
+                Text('OpenMoji Icons PICO SVGZ :'),
+                Icon(OpenmojiIconsPICOSVGZ.person_raising_hand,
+                    size: 30, color: Colors.blue),
+              ],
+            ),
+            Row(
+              children: const [
+                Text('OpenMoji Icons SBIX :'),
+                Icon(OpenmojiIconsSBIX.person_raising_hand,
+                    size: 30, color: Colors.blue),
+              ],
+            ),
+            Row(
+              children: const [
+                Text('OpenMoji Icons Untouched SVGZ :'),
+                Icon(OpenmojiIconsUNTOUCHEDSVGZ.person_raising_hand,
+                    size: 30, color: Colors.blue),
+              ],
+            )
           ],
         ),
       ),

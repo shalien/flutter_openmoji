@@ -7,10 +7,11 @@
 ///
 library flutter_openmoji;
 
-export 'src/openmoji_icons_black_glyf.dart';
 export 'src/openmoji_icons_color_cbdt.dart';
 export 'src/openmoji_icons_color_glyf_colr_0.dart';
 export 'src/openmoji_icons_color_glyf_colr_1.dart';
+export 'src/openmoji_icons_color_colr0_svg.dart';
+export 'src/openmoji_icons_color_colr1_svg.dart';
 export 'src/openmoji_icons_color_picosvgz.dart';
 export 'src/openmoji_icons_color_sbix.dart';
 export 'src/openmoji_icons_color_untouchedsvgz.dart';

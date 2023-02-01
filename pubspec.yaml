@@ -4,7 +4,7 @@ version: 0.0.8
 homepage: https://github.com/shalien/flutter_openmoji
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.15.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
@@ -20,12 +20,15 @@ dev_dependencies:
 
 flutter:
   fonts:
-     - family: OpenMoji-Black-glyf
-       fonts:
-       - asset: packages/flutter_openmoji/fonts/OpenMoji-black-glyf.ttf
      - family: OpenMoji-Color-cbdt
        fonts:
          - asset: packages/flutter_openmoji/fonts/OpenMoji-color-cbdt.ttf
+     - family: OpenMoji-Color-colr0_svg
+       fonts:
+         - asset: packages/flutter_openmoji/fonts/OpenMoji-color-colr0_svg.ttf      
+     - family: OpenMoji-Color-colr1_svg
+       fonts:
+         - asset: packages/flutter_openmoji/fonts/OpenMoji-color-colr1_svg.ttf      
      - family: OpenMoji-Color-glyf_colr_0
        fonts:
          - asset: packages/flutter_openmoji/fonts/OpenMoji-color-glyf_colr_0.ttf     

@@ -10,6 +10,8 @@ const List<String> reservedKeyword = <String>['switch', 'return'];
 
 const List<String> files = <String>[
   'cbdt',
+  'colr0_svg',
+  'colr1_svg',
   'glyf_colr_0',
   'glyf_colr_1',
   'picosvgz',
@@ -17,15 +19,9 @@ const List<String> files = <String>[
   'untouchedsvgz'
 ];
 
-final Directory assetsDirectory = Directory('assets');
-final Directory fontsDirctory =
-    Directory('${assetsDirectory.path}${separator}fonts');
+const List<String> extensions = ['ttf'];
 
-final File openmojiBlackFontFile =
-    File('${fontsDirctory.path}${separator}OpenMoji-Black.ttf');
-
-final File openmojiColorFontFile =
-    File('${fontsDirctory.path}${separator}OpenMoji-Color.ttf');
+final Directory fontsDirctory = Directory('lib${separator}fonts');
 
 final File openmojiMetadataFile =
     File('${Directory.systemTemp.path}${separator}openmoji.json');
@@ -33,59 +29,16 @@ final File openmojiMetadataFile =
 const String openmojiMetadataUrl =
     'https://github.com/hfg-gmuend/openmoji/raw/master/data/openmoji.json';
 
-const String openmojiBlackFontFileUrl =
-    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-Black.ttf';
-
-const String openmojiColorFontFileUrl =
-    'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-Color.ttf';
-
-final File openmojiIconsClass =
-    File('lib${separator}src${separator}openmoji_icons.dart');
-
 final File partialOpenmojiIconsClass =
     File('tool${separator}openmoji_icons.partial');
 
 Future<void> main() async {
-  if (await openmojiIconsClass.exists()) {
-    await openmojiIconsClass.delete();
-  }
-
   stdout.writeln('Creating assets directory');
-
-  if (!await assetsDirectory.exists()) {
-    await assetsDirectory.create();
-  }
 
   stdout.writeln('Creating fonts directory');
   if (!await fontsDirctory.exists()) {
     await fontsDirctory.create();
   }
-
-  stdout.writeln('Downloading Openmoji black font file');
-  Uri blackFontFileUri = Uri.parse(openmojiBlackFontFileUrl);
-
-  var openmojiBlackFontFileResponse = await get(blackFontFileUri);
-
-  if (openmojiBlackFontFileResponse.statusCode != 200) {
-    stderr.writeln('Unable to download font file !');
-    exit(-1);
-  }
-
-  await openmojiBlackFontFile
-      .writeAsBytes(openmojiBlackFontFileResponse.bodyBytes);
-
-  stdout.writeln('Downloading Openmoji color font file');
-  Uri colorFontFileUri = Uri.parse(openmojiColorFontFileUrl);
-
-  var openmojiColorFontFileResponse = await get(colorFontFileUri);
-
-  if (openmojiColorFontFileResponse.statusCode != 200) {
-    stderr.writeln('Unable to download font file !');
-    exit(-1);
-  }
-
-  await openmojiColorFontFile
-      .writeAsBytes(openmojiColorFontFileResponse.bodyBytes);
 
   stdout.writeln('Downloading Openmoji metadata file');
   Uri metadataFileUri = Uri.parse(openmojiMetadataUrl);
@@ -100,69 +53,103 @@ Future<void> main() async {
   await openmojiMetadataFile
       .writeAsBytes(openmojiMetadataFileResponse.bodyBytes);
 
-  StringBuffer stringBuffer = StringBuffer();
+  for (String filesName in files) {
+    final File openmojiIconsClass = File(
+        'lib${separator}src${separator}openmoji_icons_color_${filesName.toLowerCase().replaceAll('-', '_')}.dart');
 
-  stdout.writeln('Generating icons class');
+    for (String extension in extensions) {
+      final url =
+          'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/font/OpenMoji-color-$filesName/OpenMoji-color-$filesName.$extension';
 
-  List<dynamic> jsonData =
-      jsonDecode(await openmojiMetadataFile.readAsString());
+      final File fontFile = File(
+          '${fontsDirctory.path}${separator}OpenMoji-color-$filesName.$extension');
 
-  for (Map<String, dynamic> data in jsonData) {
-    String prefix = '';
+      if (await fontFile.exists()) {
+        await fontFile.delete();
+      }
 
-    var hexCode = data['hexcode'].toString();
+      Uri fileUri = Uri.parse(url);
 
-    if (hexCode.contains('-')) {
-      continue;
+      var response = await get(fileUri);
+
+      switch (response.statusCode) {
+        case 200:
+        case 204:
+          await fontFile.writeAsBytes(response.bodyBytes);
+          break;
+      }
     }
 
-    var category = data['group'].toString();
-    if (category.trim().toLowerCase().startsWith('extras')) {
-      prefix = 'extras_';
+    if (await openmojiIconsClass.exists()) {
+      await openmojiIconsClass.delete();
     }
 
-    var annotation = data['annotation'];
+    StringBuffer stringBuffer = StringBuffer();
 
-    if (reservedKeyword.contains(annotation)) {
-      annotation = '${annotation}_icon';
+    stdout.writeln('Generating icons class');
+
+    List<dynamic> jsonData =
+        jsonDecode(await openmojiMetadataFile.readAsString());
+
+    for (Map<String, dynamic> data in jsonData) {
+      String prefix = '';
+
+      var hexCode = data['hexcode'].toString();
+
+      if (hexCode.contains('-')) {
+        continue;
+      }
+
+      var category = data['group'].toString();
+      if (category.trim().toLowerCase().startsWith('extras')) {
+        prefix = 'extras_';
+      }
+
+      var annotation = data['annotation'];
+
+      if (reservedKeyword.contains(annotation)) {
+        annotation = '${annotation}_icon';
+      }
+
+      var author = data['openmoji_author'].toString().trim();
+
+      var formmatedAnnotation = annotation
+          .toLowerCase()
+          .replaceAll('-', '_')
+          .replaceAll(' ', '_')
+          .replaceAll('!', '')
+          .replaceAll('“', '')
+          .replaceAll('”', '')
+          .replaceAll(':', '')
+          .replaceAll('.', '')
+          .replaceAll('ä', 'a')
+          .replaceAll('ü', 'u')
+          .replaceAll('(', '')
+          .replaceAll(')', '')
+          .replaceAll('’', '')
+          .replaceAll('ñ', 'n')
+          .replaceAll('1st', 'first')
+          .replaceAll('2nd', 'second')
+          .replaceAll('3rd', 'third');
+
+      stringBuffer.writeln(
+          '/// <img src="https://www.openmoji.org/data/color/svg/${hexCode.toUpperCase()}.svg" width="24" height="24"/> Icon $hexCode named $annotation (use [$formmatedAnnotation]');
+      if (author.isNotEmpty) {
+        stringBuffer.writeln('/// Created by $author');
+      }
+      stringBuffer.writeln(
+          'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji-Color-$filesName\', fontPackage: _kFontPkg);');
+      stringBuffer.writeln();
     }
 
-    var author = data['openmoji_author'].toString().trim();
+    String partialFile = await partialOpenmojiIconsClass.readAsString();
+    String classContent = partialFile
+        .replaceAll('@icons', stringBuffer.toString())
+        .replaceAll('OpenmojiIcons',
+            'OpenmojiIcons${filesName.replaceAll('_', '').replaceAll('-', '').toUpperCase()}');
 
-    var formmatedAnnotation = annotation
-        .toLowerCase()
-        .replaceAll('-', '_')
-        .replaceAll(' ', '_')
-        .replaceAll('!', '')
-        .replaceAll('“', '')
-        .replaceAll('”', '')
-        .replaceAll(':', '')
-        .replaceAll('.', '')
-        .replaceAll('ä', 'a')
-        .replaceAll('ü', 'u')
-        .replaceAll('(', '')
-        .replaceAll(')', '')
-        .replaceAll('’', '')
-        .replaceAll('ñ', 'n')
-        .replaceAll('1st', 'first')
-        .replaceAll('2nd', 'second')
-        .replaceAll('3rd', 'third');
-
-    stringBuffer.writeln(
-        '/// <img src="https://www.openmoji.org/data/color/svg/${hexCode.toUpperCase()}.svg" width="24" height="24"/> Icon $hexCode named $annotation (use [$formmatedAnnotation]');
-    if (author.isNotEmpty) {
-      stringBuffer.writeln('/// Created by $author');
-    }
-    stringBuffer.writeln(
-        'static const IconData $prefix$formmatedAnnotation = IconData(0x$hexCode, fontFamily: \'OpenMoji-Color\', fontPackage: _kFontPkg);');
-    stringBuffer.writeln();
+    await openmojiIconsClass.writeAsString(classContent);
   }
-
-  String partialFile = await partialOpenmojiIconsClass.readAsString();
-  String classContent =
-      partialFile.replaceAll('@icons', stringBuffer.toString());
-
-  await openmojiIconsClass.writeAsString(classContent);
 
   stdout.writeln('Deleting metadata file');
   await openmojiMetadataFile.delete();
